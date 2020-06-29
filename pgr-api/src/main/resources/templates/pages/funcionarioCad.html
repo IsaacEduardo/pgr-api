@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+
+
+<head>
+<title>Home</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div class="col-md-12 grid-margin stretch-card">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">Cadastro</h4>
+					<p class="card-description">Cadastro de Funcionario</p>
+					<form class="forms-sample" action="addFuncionario"
+						th:object="${funcionario}" method="post">
+						<div class="form-group">
+							<label for="nome">Nome</label> <input type="text"
+								class="form-control" id="nome" placeholder="Nome"
+								th:field="*{nome}">
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="filhode">Filho de</label> <input type="text"
+									class="form-control" id="filhode" placeholder="Nome do pai"
+									th:field="*{filhoDe}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="filhoede">e De</label> <input type="text"
+									class="form-control" id="filhoede" placeholder="Nome da mãe"
+									th:field="*{efilhoDe}">
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="bi">Nº.B.I</label> <input type="text"
+									class="form-control" id="bi" placeholder="Número de Bilhete"
+									th:field="*{bi}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="dataNascimento">Data de nascimento</label> <input
+									type="date" class="form-control" id="dataNascimento"
+									th:field="*{dataNascimento}" placeholder="Data de Nascimento">
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="naturalidade">Naturalidade</label> <input
+									type="text" class="form-control" id="naturalidade"
+									th:field="*{naturalidade}" placeholder="Naturalidade">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="estadoCivil">Estado Civil</label> <select
+									id="estadoCivil" class="form-control" th:field="*{estadoCivil}">
+									<option value="">Selecione</option>
+									<option th:each="estadoCivil : ${estadoCivils}"
+										th:value="${estadoCivil}" th:text="${estadoCivil.nome}">
+									</option>
+								</select>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label for="email">Email address</label> <input type="email"
+								class="form-control" id="email" placeholder="Email"
+								th:field="*{email}">
+						</div>
+
+						<div class="form-row">
+
+							<div class="form-group col-md-6">
+								<label for="funcao">Funcao</label> <select id="funcao"
+									class="form-control" th:field="*{funcao}">
+									<option value="">Selecione</option>
+									<option th:each="funcao : ${funcoes}" th:value="${funcao.id}"
+										th:text="${funcao.nome}"></option>
+								</select>
+							</div>
+
+							<div class="form-group col-md-6">
+								<br />
+								<button type="button" class="btn btn-info mr-2"
+									data-toggle="modal" data-target="#funcaoModal">adcionar</button>
+							</div>
+
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="categoria">Categoria</label> <select id="categoria"
+									class="form-control" th:field="*{categoria}">
+									<option value="">Selecione</option>
+									<option th:each="categoria : ${categorias}"
+										th:value="${categoria.id}"
+										th:text="${categoria.nomeCategoria}"></option>
+								</select>
+							</div>
+
+							<div class="form-group col-md-6">
+								<br />
+								<button type="button" class="btn btn-info mr-2"
+									data-toggle="modal" data-target="#myModal">adcionar</button>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label for="local">Local de Trabalho</label> <input type="text"
+								class="form-control" id="local" placeholder="Local de trabalho"
+								th:field="*{localTrabalho}">
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="tempServic">Tempo de Serviço na Instituição</label> <input
+									type="text" class="form-control" id="tempServic"
+									placeholder="Tempo de Serviço"
+									th:field="*{tempoInicioServicoInstituicao}">
+
+							</div>
+
+
+							<div class="form-group col-md-6">
+								<label for="tempoF">Tempo de trabalho no local onde
+									funciona</label> <input type="text" class="form-control" id="tempoF"
+									placeholder="Tempo de serviço no local onde funiona"
+									th:field="*{tempoTrabalhhoLocalFunciona}">
+
+							</div>
+
+						</div>
+
+
+
+
+
+						<button type="submit" class="btn btn-success mr-2" value="salvar">Salvar</button>
+						<button class="btn btn-danger" type="reset">Cancel</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal para Categoria -->
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal Categoria-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"></button>
+						<h4 class="modal-title">Cadastro de categorias</h4>
+					</div>
+					<div class="modal-body">
+
+						<form class="forms-sample" action="addCategoria"
+							th:object="${categoria}" method="post">
+							<div class="form-group">
+								<label for="nomeCategoria">Nome</label> <input type="text"
+									class="form-control" id="nomeCategoria" placeholder="Nome"
+									name="nomeCategoria">
+							</div>
+							<button type="submit" class="btn btn-success mr-2" value="salvar">adcionar</button>
+						</form>
+
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Funcao -->
+
+		<!-- Modal para Funcao-->
+		<!-- Modal -->
+		<div class="modal fade" id="funcaoModal" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal Categoria-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"></button>
+						<h4 class="modal-title">Cadastro de funções</h4>
+					</div>
+					<div class="modal-body">
+
+						<form class="forms-sample" action="addFuncao"
+							th:object="${funcao}" method="post">
+							<div class="form-group">
+								<label for="nomeFunao">Nome</label> <input type="text"
+									class="form-control" id="nomeFuncao" placeholder="Nome"
+									name="nome">
+							</div>
+							<button type="submit" class="btn btn-success mr-2" value="salvar">adcionar</button>
+						</form>
+
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>

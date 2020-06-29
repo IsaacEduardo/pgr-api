@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+
+
+<head>
+<title>Home</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div class="col-md-12 grid-margin stretch-card">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">Cadastro</h4>
+					<p class="card-description">Cadastro de Arguido</p>
+
+
+					<form class="forms-sample"
+						th:action="${arguido.novo} ? @{/arguido/novo} : @{/arguido/{id}(id=${arguido.id})}"
+						th:object="${arguido}" method="post" enctype="multipart/form-data">
+
+
+
+						<div class="alert alert-success"
+							th:if="${!#strings.isEmpty(mensagem)}">
+							<button type="button" class="close" data-dismiss="alert">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<span th:text="${mensagem}"></span>
+						</div>
+
+						<input type="hidden" th:field="*{id}" />
+
+
+						<div class="alert alert-danger alert-dismissible" role="alert"
+							th:if="${#fields.hasAnyErrors()}">
+							<button type="button" class="close" data-dismiss="alert">
+								<span aria-hidden="true">&times;</span>
+							</button>
+
+							<th:block th:each="detailedError : ${#fields.detailedErrors()}">
+								<div>
+									<i class="fa fa-exclamation-circle"></i>[[${detailedError.message}]].
+								</div>
+							</th:block>
+						</div>
+
+
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('nome')} ? has-error">
+							<label for="nome">Nome</label> <input type="text"
+								class="form-control validate" id="nome" placeholder="Nome"
+								th:field="*{nome}" autofocus="autofocus">
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="filhode">Filho de</label> <input type="text"
+									class="form-control" id="filhode" placeholder="Nome do pai"
+									th:field="*{filhoDe}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="filhoede">e De</label> <input type="text"
+									class="form-control" id="filhoede" placeholder="Nome da mãe"
+									th:field="*{efilhoDe}">
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="bi">Nº.B.I</label> <input type="text"
+									class="form-control" id="bi" placeholder="Número de Bilhete"
+									th:field="*{bi}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="dataNascimento">Data de nascimento</label> <input
+									type="date" class="form-control" id="dataNascimento"
+									th:field="*{dataNascimento}" placeholder="Data de Nascimento">
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="naturalidade">Naturalidade</label> <input
+									type="text" class="form-control" id="naturalidade"
+									th:field="*{naturalidade}" placeholder="Naturalidade">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="estadoCivil">Estado Civil</label> <select
+									id="estadoCivil" class="form-control" th:field="*{estadoCivil}">
+									<option value="">Selecione</option>
+									<option th:each="estadoCivil : ${estadoCivils}"
+										th:value="${estadoCivil}" th:text="${estadoCivil.nome}">
+									</option>
+								</select>
+							</div>
+
+						</div>
+
+
+
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="condicaoRecepcao">Condição de recepção</label> <input
+									type="text" class="form-control" id="condicaoRecepcao"
+									placeholder="Condição de recepção do arguido"
+									th:field="*{condicaoRecepcao}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="qualidade">Qualidade</label> <input type="text"
+									class="form-control" id="qualidade" placeholder="Qualidade"
+									th:field="*{qualidade}">
+							</div>
+
+						</div>
+
+
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="contactoP">Telefone principal</label> <input
+									type="text" class="form-control" id="contactoP"
+									placeholder="Nº de telefone principal" th:field="*{contactoP}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="contactoA">Telefone adcional</label> <input
+									type="text" class="form-control" id="contactoA"
+									placeholder="Nº de telefone adcional" th:field="*{contactoA}">
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+							<label for="email">Email address</label> <input type="email"
+								class="form-control" id="email" placeholder="Email"
+								th:field="*{email}">
+						</div>
+
+						<div class="form-row">
+
+							<div class="form-group col-md-6">
+								<label for="dataDetencao">Data Detenção</label> <input
+									type="date" class="form-control" id="dataDetencao"
+									th:field="*{dataDetencao}" placeholder="Data da detenção">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="dataLegalizacao">Data Legalização</label> <input
+									type="date" class="form-control" id="dataLegalizacao"
+									th:field="*{dataLegalizacao}" placeholder="Data da legalização">
+							</div>
+						</div>
+
+
+						<div class="form-row">
+
+							<div class="form-group col-md-6">
+								<label for="crime">Crime</label> <select id="crime"
+									class="form-control" th:field="*{crime}">
+									<option value="">Selecione</option>
+									<option th:each="crime : ${crimes}" th:value="${crime.id}"
+										th:text="${crime.nome}"></option>
+								</select>
+							</div>
+
+							<div class="form-group col-md-6">
+								<br />
+								<button type="button" class="btn btn-info mr-2"
+									data-toggle="modal" data-target="#funcaoModal">adcionar</button>
+							</div>
+
+
+
+
+							<div class="form-group col-md-6">
+								<label for="situacao">Situação</label> <select id="situacao"
+									class="form-control" th:field="*{situacao}">
+									<option value="">Selecione</option>
+									<option th:each="situacao : ${situacoes}"
+										th:value="${situacao.id}" th:text="${situacao.nome}"></option>
+								</select>
+							</div>
+
+
+
+
+							<div class="form-group col-md-6">
+								<br />
+								<button type="button" class="btn btn-info mr-2"
+									data-toggle="modal" data-target="#situacaoModal">adcionar</button>
+							</div>
+
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label>Fotografia</label> <input type="file" name="img[]"
+									class="file-upload-default">
+								<div class="input-group col-xs-12">
+									<input type="file" class="form-control file-upload-info"
+										placeholder="Upload fotografia" id="arguidoFotografia"
+										name="fotografia"> <span class="input-group-append">
+										<button class="file-upload-browse btn btn-info" type="button">Carregar</button>
+									</span>
+								</div>
+							</div>
+
+						</div>
+
+
+						
+						<button type="submit" class="btn btn-success mr-2" value="salvar"
+							id="salva">Salvar</button>
+						<button class="btn btn-danger" type="reset">Cancel</button>
+
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+		<!-- Funcao -->
+
+		<!-- Modal crime-->
+		<!-- Modal -->
+		<div class="modal fade" id="funcaoModal" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal Categoria-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"></button>
+						<h4 class="modal-title">Adicionar crime</h4>
+					</div>
+					<div class="modal-body">
+
+						<form class="forms-sample" action="addCrime" th:object="${crime}"
+							method="post">
+							<div class="form-group">
+								<label for="nomeCrime">Nome</label> <input type="text"
+									class="form-control" id="nomeCrime" placeholder="Nome"
+									name="nome">
+							</div>
+
+
+							<div class="form-group">
+								<label for="siglaCrime">Sigla</label> <input type="text"
+									class="form-control" id="siglaCrime" placeholder="Sigla"
+									name="sigla">
+							</div>
+							<button type="submit" class="btn btn-success mr-2" value="salvar">adcionar</button>
+						</form>
+
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+
+
+		<!-- Modal crime-->
+		<!-- Modal -->
+		<div class="modal fade" id="situacaoModal" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal Categoria-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"></button>
+						<h4 class="modal-title">Adicionar Situação do arguido</h4>
+					</div>
+					<div class="modal-body">
+
+						<form class="forms-sample" action="addSituacao"
+							th:object="${situacao}" method="post">
+							<div class="form-group">
+								<label for="nomeSituacao">Nome</label> <input type="text"
+									class="form-control" id="nomeSituacao" placeholder="Nome"
+									name="nome">
+							</div>
+
+
+							<div class="form-group">
+								<label for="descricao">Descrição</label> <input type="text"
+									class="form-control" id="descricao" placeholder="descricao"
+									name="descricao">
+							</div>
+							<button type="submit" class="btn btn-success mr-2" value="salvar">adcionar</button>
+						</form>
+
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+	</section>
+
+
+	<script>
+		$('.js-status').bootstrapSwitch();
+	</script>
+</body>
+</html>

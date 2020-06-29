@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+
+
+<head>
+<title>Home</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div class="col-md-12 grid-margin stretch-card">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">Cadastro</h4>
+					<p class="card-description">Cadastro de Arguido</p>
+					
+					<fieldset>
+					<form class="forms-sample" action="updateArguido" th:object="${arguido}"
+						method="post" enctype="multipart/form-data">
+						
+						<div class="form-group">
+						<input hidden="hidden" name="id" th:value="${arguido.id}" />
+						</div>
+						
+						<div class="form-group">
+							<label for="nome">Nome</label> <input type="text"
+								class="form-control" id="nome" placeholder="Nome"
+								th:field="*{nome}">
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="filhode">Filho de</label> <input type="text"
+									class="form-control" id="filhode" placeholder="Nome do pai"
+									th:field="*{filhoDe}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="filhoede">e De</label> <input type="text"
+									class="form-control" id="filhoede" placeholder="Nome da mãe"
+									th:field="*{efilhoDe}">
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="bi">Nº.B.I</label> <input type="text"
+									class="form-control" id="bi" placeholder="Número de Bilhete"
+									th:field="*{bi}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="dataNascimento">Data de nascimento</label> <input
+									type="date" class="form-control" id="dataNascimento"
+									th:field="*{dataNascimento}" placeholder="Data de Nascimento">
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="naturalidade">Naturalidade</label> <input
+									type="text" class="form-control" id="naturalidade"
+									th:field="*{naturalidade}" placeholder="Naturalidade">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="estadoCivil">Estado Civil</label> <select
+									id="estadoCivil" class="form-control" th:field="*{estadoCivil}">
+									<option value="">Selecione</option>
+									<option th:each="estadoCivil : ${estadoCivils}"
+										th:value="${estadoCivil}" th:text="${estadoCivil.nome}">
+									</option>
+								</select>
+							</div>
+
+						</div>
+
+
+
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="condicaoRecepcao">Condição de recepção</label> <input
+									type="text" class="form-control" id="condicaoRecepcao"
+									placeholder="Condição de recepção do arguido"
+									th:field="*{condicaoRecepcao}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="qualidade">Qualidade</label> <input type="text"
+									class="form-control" id="qualidade" placeholder="Qualidade"
+									th:field="*{qualidade}">
+							</div>
+
+						</div>
+
+
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="contactoP">Telefone principal</label> <input
+									type="text" class="form-control" id="contactoP"
+									placeholder="Nº de telefone principal" th:field="*{contactoP}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="contactoA">Telefone adcional</label> <input
+									type="text" class="form-control" id="contactoA"
+									placeholder="Nº de telefone adcional" th:field="*{contactoA}">
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+							<label for="email">Email address</label> <input type="email"
+								class="form-control" id="email" placeholder="Email"
+								th:field="*{email}">
+						</div>
+
+						<div class="form-row">
+
+							<div class="form-group col-md-6">
+								<label for="dataDetencao">Data Detenção</label> <input
+									type="date" class="form-control" id="dataDetencao"
+									th:field="*{dataDetencao}" placeholder="Data da detenção">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="dataLegalizacao">Data Legalização</label> <input
+									type="date" class="form-control" id="dataLegalizacao"
+									th:field="*{dataLegalizacao}" placeholder="Data da legalização">
+							</div>
+						</div>
+
+
+						<div class="form-row">
+
+							<div class="form-group col-md-6">
+								<label for="crime">Crime</label> <select id="crime"
+									class="form-control" th:field="*{crime}">
+									<option value="">Selecione</option>
+									<option th:each="crime : ${crimes}" th:value="${crime.id}"
+										th:text="${crime.nome}"></option>
+								</select>
+							</div>
+							
+							
+								<div class="form-group col-md-6">
+								<label for="situacao">Situação</label> <select id="situacao"
+									class="form-control" th:field="*{situacao}">
+									<option value="">Selecione</option>
+									<option th:each="situacao : ${situacoes}" th:value="${situacao.id}"
+										th:text="${situacao.nome}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label>Fotografia</label> <input type="file" name="img[]"
+									class="file-upload-default">
+								<div class="input-group col-xs-12">
+									<input type="file" class="form-control file-upload-info"
+										placeholder="Upload fotografia" id="arguidoFotografia"
+										name="fotografia"> <span class="input-group-append">
+										<button class="file-upload-browse btn btn-info" type="button">Carregar</button>
+									</span>
+								</div>
+							</div>
+
+							<div class="form-group col-md-6">
+
+								<label for="file">Arquivo</label>
+								<div class="input-group col-xs-12">
+
+									<input type="file" name="file" id="file"
+										class="form-control file-upload-info" /><span
+										class="input-group-append">
+										<button class="file-upload-browse btn btn-info" type="button">Carregar</button>
+									</span>
+								</div>
+							</div>
+
+						</div>
+						<button type="submit" class="btn btn-success mr-2" value="salvar">Salvar</button>
+						<button class="btn btn-danger" value="@{/arguido/arguidoInfo(id=${book.id})}">Cancel</button>
+					</form>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+	
+	</section>
+</body>
+</html>

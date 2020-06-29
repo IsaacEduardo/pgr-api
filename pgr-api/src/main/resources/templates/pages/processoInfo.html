@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+
+
+<head>
+<title>Home</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="row">
+
+			<div
+				class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+				<div class="card card-statistics">
+					<div class="card-body">
+						<div class="clearfix">
+
+
+							<li><a th:href="@{/processo/lista}"><i
+									class="fa fa-long-arrow-left" aria-hidden="true"></i>Voltar</a></li>
+							<li><a th:href="@{/processo/{id}(id=${processo.id})}">Editar</a></li>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+		<div class="col-12 grid-margin">
+			<div class="card">
+				<div class="card-body">
+
+					<div class="fluid-container">
+						<h4 class="title">
+							Nº Processo:
+							<code th:text="${processo.numeroProcesso}"></code>
+						</h4>
+						<hr>
+
+						<div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
+
+
+
+							<div class="ticket-details col-md-9">
+								<div class="d-flex">
+									<strong>Área: </strong>
+									<p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap"
+										th:text=" ${processo.areaProcesso.nome}"></p>
+								</div>
+
+
+								<div class="d-flex">
+									<strong>Instância actual: </strong>
+									<p class="text-primary mr-1 mb-0"
+										th:text=" ${processo.instanciaAtual}"></p>
+
+
+								</div>
+
+								<strong>Descrição: </strong>
+								<p class="text-gray ellipsis mb-2"
+									th:text="${processo.descricao}">.</p>
+
+
+
+								<p>
+									<strong>Arguidos: </strong><span
+										th:each="arguido : ${processo.arguidos}"
+										th:text="${arguido.nome} + ' | '"> </span>
+								</p>
+
+								<div class="row text-gray d-md-flex d-none">
+									<div class="col-4 d-flex">
+										<small class="mb-0 mr-2 text-muted text-muted">Data de
+											abertura :</small> <small
+											class="Last-responded mr-2 mb-0 text-muted text-muted"
+											th:text="${processo.dataAbertura}"></small>
+									</div>
+									<div class="col-4 d-flex">
+										<small class="mb-0 mr-2 text-muted text-muted">Instrutor
+											:</small> <small
+											class="Last-responded mr-2 mb-0 text-muted text-muted"
+											th:text="${processo.instrutor.nome}"></small>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+	</section>
+
+
+</body>
+</html>
